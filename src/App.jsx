@@ -1,20 +1,16 @@
 import { useState } from "react"
 import { ListOfSongs } from "./components/songs";
 import './App.css'
-import { getSearchResults } from "./services/apiCall";
+import { useSearchResults } from "./services/apiCall";
 
 export function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState('');
+  const { searchResults, isLoading } = useSearchResults(searchTerm)
 
-  const handleSearch = async (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        const results = await getSearchResults(searchTerm);
-        setSearchResults(results);
-        setSearchTerm('');
-        setIsLoading(false);
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchTerm(isSearching)
   };
   
   return (
@@ -23,15 +19,15 @@ export function App() {
       <form onSubmit={handleSearch}>
         <input
           type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={isSearching}
+          onChange={(e) => setIsSearching(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
       
       {
         isLoading ? 
-        <p>Loading...</p> 
+        <i>Loading...</i> 
         : <ListOfSongs searchResults={searchResults} />
       }
 

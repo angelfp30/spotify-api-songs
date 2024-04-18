@@ -1,7 +1,7 @@
 export function ListOfSongs({ searchResults }) {
 
     return (
-        <ul className="songs">
+      <ul className="songs">
         {searchResults.map((song, index) => (
 
           <li key={index} className="song">
