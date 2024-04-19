@@ -28,13 +28,11 @@ const options = {
           setIsLoading(false);
         }
       };
+
+      console.log("effect")
   
       fetchData();
-
-      return () => {
-        fetchData();
-      }
-
+      
     }, [term]);
   
     return { searchResults, isLoading };

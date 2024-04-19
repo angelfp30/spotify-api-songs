@@ -1,35 +1,38 @@
 export function ListOfSongs({ searchResults }) {
-
     return (
       <ul className="songs">
-        {searchResults.map((song, index) => (
+        {searchResults.map((song, index) => {
+          const artistName = song.data.artists.items[0].profile.name;
+          const albumCover = song.data.albumOfTrack.coverArt.sources[0].url;
 
-          <li key={index} className="song">
-            <img src={song.data.albumOfTrack.coverArt.sources[0].url} alt="" />
+          return (            
+            <li key={index} className="song">
 
-            <h2>{song.data.name}</h2>
+              <img src={albumCover} alt={song.data.albumOfTrack} />
 
-            <h4 className="artist">{song.data.artists.items[0].profile.name}</h4>
-            Play on Spotify {" "}
-            <a href={song.data.uri} target="_blank">
-             App {" "}
-            </a>
-            or {" "}
-            <a href={`https://open.spotify.com/track/${song.data.id}`} target="_blank">
-               Website {" "}
-            </a>
+              <h2>{song.data.name}</h2>
 
-            <a
-              href={`https://genius.com/${song.data.artists.items[0].profile.name.replaceAll(
-                ' ',
-                '-'
-              )}-${song.data.name.replaceAll(' ', '-')}-lyrics`} target="_blank"
-            >
-            <h4>Lyrics</h4>
-            </a>
-            
-          </li>
-        ))}
+              <h4 className="artist">{artistName}</h4>
+              Play on Spotify {" "}
+                <a href={song.data.uri} target="_blank">
+                App {" "}
+                </a>
+                or {" "}
+                <a href={`https://open.spotify.com/track/${song.data.id}`} target="_blank">
+                  Website {" "}
+                </a>
+
+                <a
+                  href={`https://genius.com/${artistName.replaceAll(
+                    ' ',
+                    '-'
+                  )}-${song.data.name.replaceAll(' ', '-')}-lyrics`} target="_blank"
+                >
+                <h4>Lyrics</h4>
+                </a>
+            </li>
+          );
+        })}
       </ul>
     )
 }
