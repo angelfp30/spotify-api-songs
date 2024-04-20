@@ -15,7 +15,7 @@ export function App() {
   
   return (
     <div className="page">
-      <h1>Spotify API</h1>
+      <h1>Spotify Songs</h1>
       <form onSubmit={handleSearch}>
         <input
           type="text"
